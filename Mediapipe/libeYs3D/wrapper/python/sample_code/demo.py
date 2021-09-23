@@ -118,10 +118,13 @@ if __name__ == '__main__':
         #     fps=30,
         # )
         # conf.set_depth_data_type_with_advanced_setting(11, is_rectify=True, is_interleave_mode=True)
-
+        ir_property = device.get_IRProperty()
+        ir_property.set_IR_value(3)
         conf.set_preset_mode_config(0x138, args.index, device.get_usb_type())
     if "8052" == args.module:
         conf.set_preset_mode_config(0x137, args.index, device.get_usb_type())
+        ir_property = device.get_IRProperty()
+        ir_property.set_IR_value(3)
     elif "8036" == args.module:
         conf.set_color_stream(
             COLOR_RAW_DATA_TYPE.COLOR_RAW_DATA_YUY2,
@@ -137,14 +140,24 @@ if __name__ == '__main__':
             fps=30,
         )
         conf.set_depth_data_type_with_advanced_setting(14, is_rectify=False, is_interleave_mode=False)
+        ir_property = device.get_IRProperty()
+        ir_property.set_IR_value(3)
     elif "8062" == args.module:
         conf.set_preset_mode_config(0x162, args.index, device.get_usb_type())
+        ir_property = device.get_IRProperty()
+        ir_property.set_IR_value(3)
     elif "8059" == args.module:
         conf.set_preset_mode_config(0x146, args.index, device.get_usb_type())
+        ir_property = device.get_IRProperty()
+        ir_property.set_IR_value(3)
     elif "8067" == args.module:
         conf.set_preset_mode_config(0x12C, args.index, device.get_usb_type())
+        ir_property = device.get_IRProperty()
+        ir_property.set_IR_value(3)
     elif "HYPATIA" == args.module: # 8071
-        conf.set_preset_mode_config(0x160, args.index, device.get_usb_type()) 
+        conf.set_preset_mode_config(0x160, args.index, device.get_usb_type())
+        ir_property = device.get_IRProperty()
+        ir_property.set_IR_value(60)
     else:
         print("Please input correct module name")
         sys.exit()

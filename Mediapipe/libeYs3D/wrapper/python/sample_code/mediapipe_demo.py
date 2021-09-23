@@ -4,6 +4,8 @@ It's a demo to preview 2D frame with opencv.
 Usage:
     Hot Keys:
         * Q/q/Esc: Quit
+        * M increase IR emitter level
+        * N decrease IR emitter level
 """
 
 import sys
@@ -96,11 +98,90 @@ def mediapipe_demo(device, config):
                                               z_map), depth_roi), 1000)
             except (TypeError, ValueError, cv2.error, KeyError) as e:
                 print(e)
-
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            status = {
+                -1: status,
+                27: 'exit',  # Esc
+                ord('q'): 'exit',
+                ord('Q'): 'exit',
+                ord('e'): 'exposure',
+                ord('E'): 'exposure',
+                65470: 'snapshot',  # F1
+                65471: 'dump_frame_info',  # F2
+                ord('i'): 'extend_IR',
+                ord('I'): 'extend_IR',
+                ord('m'): 'increased_IR',
+                ord('M'): 'increased_IR',
+                ord('n'): 'decreased_IR',
+                ord('N'): 'decreased_IR',
+                ord('0'): 'reset-z-range',
+                ord('1'): 'z-range-setting-1',
+                ord('2'): 'z-range-setting-2',
+                65361: 'play',  # Left arrow
+            }[cv2.waitKeyEx(2)]
+            if status == 'play':
+                continue
+            if status == 'exit':
                 cv2.destroyAllWindows()
                 pipe.pause()
                 break
+            if status == 'exposure':
+                flag["exposure"] = not (flag["exposure"])
+                if flag["exposure"]:
+                    logger.info("Enable exposure")
+                    camera_property.enable_AE()
+                else:
+                    logger.info("Disable exposure")
+                    camera_property.disable_AE()
+                status = 'play'
+            if status == 'snapshot':
+                device.do_snapshot()
+                logger.info(status)
+                status = 'play'
+            if status == 'dump_frame_info':
+                device.dump_frame_info()
+                logger.info(status)
+                status = 'play'
+            if status == 'extend_IR':
+                flag["Extend_IR"] = not (flag["Extend_IR"])
+                if flag["Extend_IR"]:
+                    logger.info("Enable extend IR")
+                    ir_property.enable_extendIR()
+                else:
+                    logger.info("Disable extend IR")
+                    ir_property.disable_extendIR()
+                status = 'play'
+            if status == 'increased_IR':
+                ir_value = min(ir_value + 1, ir_property.get_IR_max())
+                ir_property.set_IR_value(ir_value)
+                time.sleep(0.1)
+                logger.info("Increase IR, current value = {}".format(ir_value))
+                status = 'play'
+            if status == 'decreased_IR':
+                ir_value = max(ir_value - 1, ir_property.get_IR_min())
+                ir_property.set_IR_value(ir_value)
+                time.sleep(0.1)
+                logger.info("Decrease IR, current value = {}".format(ir_value))
+                status = 'play'
+            if status == 'reset-z-range':
+                logger.info("Reset z range")
+                device.set_z_range(ZNEAR_DEFAULT, ZFAR_DEFAULT)
+                z_range = device.get_z_range()
+                logger.info("ZNear: {}, ZFar:{}".format(
+                    z_range["Near"], z_range["Far"]))
+                status = 'play'
+            if status == 'z-range-setting-1':
+                device.set_z_range(1234, 5678)
+                z_range = device.get_z_range()
+                logger.info("ZNear: {}, ZFar:{}".format(
+                    z_range["Near"], z_range["Far"]))
+                status = 'play'
+            if status == 'z-range-setting-2':
+                device.set_z_range(1200, 1600)
+                z_range = device.get_z_range()
+                logger.info("ZNear: {}, ZFar:{}".format(
+                    z_range["Near"], z_range["Far"]))
+                status = 'play'
+
 
     pipe.stop()
 
