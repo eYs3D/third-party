@@ -139,6 +139,12 @@ if __name__ == '__main__':
         conf.set_depth_data_type_with_advanced_setting(14, is_rectify=False, is_interleave_mode=False)
     elif "8062" == args.module:
         conf.set_preset_mode_config(0x162, args.index, device.get_usb_type())
+    elif "8059" == args.module:
+        conf.set_preset_mode_config(0x146, args.index, device.get_usb_type())
+    elif "8067" == args.module:
+        conf.set_preset_mode_config(0x12C, args.index, device.get_usb_type())
+    elif "HYPATIA" == args.module: # 8071
+        conf.set_preset_mode_config(0x160, args.index, device.get_usb_type()) 
     else:
         print("Please input correct module name")
         sys.exit()

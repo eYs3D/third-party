@@ -4,22 +4,6 @@ It's a demo to preview 2D frame with opencv.
 Usage:
     Hot Keys:
         * Q/q/Esc: Quit
-        * E/e: Enable/Disable AE
-        * <F1>: Perform snapshot
-        * <F2>: Dump frame info
-        * <F3>: Dump IMU data
-        * <F4>: Dump eYs3D system info
-        * <F5>: Save rectify log data
-        * <F6>: Dump camera properties info
-        * I/i: Enable/Disable extend maximum IR value
-        * M/m: Increase IR level
-        * N/n: Decrease IR level
-        * L/l: Increase z-roi
-        * K/k: Decrease z-roi
-        * P/p: Enabel/Disable HW PP
-        * 0: Reset Z range
-        * 1: Z range setting 1 with ZNear=1234 and ZFar=5678
-        * 2: Z range setting 2 with ZNear=1200 and ZFar=1600
 """
 
 import sys
