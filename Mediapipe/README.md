@@ -15,6 +15,6 @@
 - sh run_demo.sh 8059 5 11
 - sh run_demo.sh 8062 2 14
 - sh run_demo.sh 8067 2 14
-- sh run_demo.sh HYPATIA 1 14
+- sh run_demo.sh 8071 1 14
 
 

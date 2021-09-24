@@ -154,7 +154,7 @@ if __name__ == '__main__':
         conf.set_preset_mode_config(0x12C, args.index, device.get_usb_type())
         ir_property = device.get_IRProperty()
         ir_property.set_IR_value(3)
-    elif "HYPATIA" == args.module: # 8071
+    elif "8071" == args.module: # 8071
         conf.set_preset_mode_config(0x160, args.index, device.get_usb_type())
         ir_property = device.get_IRProperty()
         ir_property.set_IR_value(60)
