@@ -8,9 +8,8 @@
 - source venv/bin/activate
 - python3.7 -m pip install --upgrade pip
 - python3.7 -m pip install -r requirements.txt
-
--pip install opencv-python==4.5.5.64
--pip install protobuf==3.20.*
+- pip install opencv-python==4.5.5.64
+- pip install protobuf==3.20.*
 
 #### Run the sample code according to your module.
 - sh run_demo.sh 8052 1 14
